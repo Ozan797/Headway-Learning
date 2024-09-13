@@ -1,15 +1,18 @@
-import dotenv from "dotenv";
-import express, {Application, Request, Response } from "express";
+import express, { Request, Response } from 'express';
+import createTables from './schema';
 
-dotenv.config();  // Load environment variables
+const app = express();
+const PORT = process.env.PORT;
 
-const app:Application = express();
-const PORT = process.env.PORT ;
+app.use(express.json());
 
-app.get("/", (req: Request, res: Response) => {
-    res.send("Welcome to Headway Learning API")
-})
+// Create tables on startup
+createTables();
 
-app.listen(PORT, ()=> {
-    console.log(`Server is running on port http://localhost:${PORT}`)
-})
+app.get('/', (req: Request, res: Response) => {
+  res.send('Hello, world!');
+});
+
+app.listen(PORT, () => {
+  console.log(`Server is running on http://localhost:${PORT}`);
+});
