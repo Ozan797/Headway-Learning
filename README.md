@@ -146,4 +146,4 @@ This project is licensed under the MIT License - see the LICENSE file for detail
 
 ## **Contact**
 
-For any queries, reach out to [Your Name](mailto:youremail@example.com).
+For any queries, reach out to [Me](mailto:ozan8@hotmail.co.uk).
