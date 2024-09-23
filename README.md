@@ -1,194 +1,149 @@
+
 # Headway Learning - Mental Health eLearning Platform
 
-Headway Learning is an informational eLearning platform focused on providing resources and educational content about mental health illnesses. The platform serves as a repository of detailed articles, multimedia, and descriptions of various mental health conditions.
+**Headway Learning** is a fullstack eLearning platform focused on mental health, providing guided meditations, breathing exercises, and personalized learning paths to help users understand and manage mental well-being.
 
-## Table of Contents
+## **Tech Stack**
 
-- [Project Overview](#project-overview)
-- [Features](#features)
-- [Technology Stack](#technology-stack)
-- [API Documentation](#api-documentation)
-- [Database Models](#database-models)
-- [Frontend Overview](#frontend-overview)
-- [Contributing](#contributing)
-- [License](#license)
+### **Frontend:**
+- **ReactJS**: For building the interactive user interface.
+- **TypeScript**: For adding static typing to the JavaScript code.
+- **SASS**: For modular and maintainable styling.
 
----
+### **Backend:**
+- **Express with TypeScript**: For creating a type-safe and structured API.
+- **SQL Database (e.g., PostgreSQL)**: For managing relational data.
+- **Prisma ORM**: For simplifying interactions with the database.
+- **JWT**: For user authentication and authorization.
 
-## Project Overview
+### **DevOps:**
+- **Docker**: For containerizing the application to ensure consistency across different environments.
 
-The goal of **Headway Learning** is to spread awareness and provide education about mental health illnesses through informative articles, videos, and other resources. The platform is designed to offer an accessible learning experience for anyone seeking information on mental health conditions.
+### **Additional Tools:**
+- **React Query**: For handling data fetching and caching on the frontend.
+- **Formik + Yup**: For form management and validation.
 
----
+## **Features**
 
-## Features
+### Core Features
+- **User Authentication & Authorization**: Secure user sign-up, login, and role-based access.
+- **Guided Meditation Library**: Various guided meditations for different mental health topics.
+- **Breathing Exercise Module**: Interactive exercises with visual aids.
+- **Daily Mental Health Routine**: Customizable daily routines with reminders.
+- **Progress Tracking & Analytics**: Track user engagement and progress over time.
 
-- **Comprehensive Information**: Detailed pages about various mental health illnesses.
-- **Search Functionality**: Users can search and filter for specific mental health topics.
-- **Multimedia Support**: Video and other educational materials to enhance learning.
-- **Resource Links**: Links to external resources such as official health organizations and guides.
+### Optional Features (Future Enhancements)
+- Meditation Recommendations Based on Mood
+- Community Features (Groups & Forums)
+- Expert-Led Live Sessions
+- AI-Powered Meditation Guide
 
----
+## **Project Setup**
 
-## Technology Stack
+### Prerequisites
+- Node.js (>= 14.x)
+- Docker & Docker Compose
+- PostgreSQL (if not using Docker)
 
-- **Backend**: Node.js, Express, PostgreSQL
-- **Frontend**: React
-- **Database**: PostgreSQL
-- **ORM**: TypeORM (for managing database operations)
-- **Authentication**: JWT
+### **Getting Started**
 
----
+1. **Clone the repository:**
+   ```bash
+   git clone https://github.com/yourusername/headway-learning.git
+   cd headway-learning
+   ```
 
-## API Documentation
+2. **Install dependencies:**
+   - Install backend dependencies:
+     ```bash
+     cd backend
+     npm install
+     ```
+   - Install frontend dependencies:
+     ```bash
+     cd ../frontend
+     npm install
+     ```
 
-### 1. **GET /api/illnesses**
+3. **Environment Variables**
+   - Create a `.env` file in the root directory for both frontend and backend:
+     ```bash
+     # Backend .env
+     DATABASE_URL=postgresql://user:password@localhost:5432/headway_learning
+     JWT_SECRET=your_jwt_secret
+     ```
+     ```bash
+     # Frontend .env
+     REACT_APP_API_URL=http://localhost:5000/api
+     ```
 
-**Description**: Fetch a list of all mental health illnesses.
+4. **Run the Application:**
+   - Using Docker:
+     ```bash
+     docker-compose up --build
+     ```
+   - Without Docker:
+     - Start the backend server:
+       ```bash
+       cd backend
+       npm run dev
+       ```
+     - Start the frontend server:
+       ```bash
+       cd ../frontend
+       npm start
+       ```
 
-**Response**:
+## **Database Migration**
 
-```json
-[
-  {
-    "id": 1,
-    "name": "Anxiety Disorder",
-    "description": "Detailed description about anxiety disorder",
-    "symptoms": "List of symptoms",
-    "treatments": "List of treatments",
-    "videoUrl": "http://youtube.com/example",
-    "resources": "http://example.com/resources"
-  }
-]
+If using Prisma, generate the database migrations with:
+```bash
+npx prisma migrate dev
 ```
 
-### 2. POST /api/illnesses (Admin Only)
+## **Folder Structure**
 
-**Description**: Add a new illness (requires admin privileges).
-
-**Request**:
-
-```json
-[
-  {
-  "name": "New Illness",
-  "description": "Description of the illness",
-  "symptoms": "List of symptoms",
-  "treatments": "List of treatments",
-  "videoUrl": "http://youtube.com/example",
-  "resources": "http://example.com/resources"
-}
-]
+```
+root
+│
+├── backend
+│   ├── src
+│   │   ├── controllers
+│   │   ├── services
+│   │   ├── models
+│   │   ├── routes
+│   │   └── utils
+│   └── package.json
+│
+├── frontend
+│   ├── src
+│   │   ├── components
+│   │   ├── pages
+│   │   ├── services
+│   │   └── styles
+│   └── package.json
+│
+├── docker-compose.yml
+└── README.md
 ```
 
-### 3. PUT /api/illnesses/ (Admin Only)
+## **Testing**
 
-**Description**: Update the details of an existing illness by ID (requires admin privileges).
+- **Frontend**: Use `Jest` and `React Testing Library` for testing.
+- **Backend**: Use `Mocha` and `Chai` for testing.
 
-**Request**:
+## **Contributing**
 
-```json
-[
-  {
-  "name": "Updated Illness Name",
-  "description": "Updated description",
-  "symptoms": "Updated symptoms",
-  "treatments": "Updated treatments",
-  "videoUrl": "http://youtube.com/example",
-  "resources": "http://example.com/resources"
-}
-]
-```
+1. Fork the repository
+2. Create a feature branch (`git checkout -b feature/YourFeature`)
+3. Commit your changes (`git commit -m 'Add some feature'`)
+4. Push to the branch (`git push origin feature/YourFeature`)
+5. Open a Pull Request
 
+## **License**
 
-### 4. DELETE /api/illnesses/ (Admin Only)
+This project is licensed under the MIT License - see the LICENSE file for details.
 
-**Description**: Delete an illness by ID (requires admin privileges).
+## **Contact**
 
-**Response**:
-
-```json
-[
-  {
-  "message": "Illness deleted successfully"
-}
-]
-```
-
-
-
-## Database Models
-
-### Illness Model
-
-The **Illness** model contains all relevant information about a specific mental health illness.
-
-| Field         | Type      | Description                                      |
-|---------------|-----------|--------------------------------------------------|
-| `id`          | `integer` | Primary key                                      |
-| `name`        | `string`  | Name of the illness                              |
-| `description` | `text`    | Detailed description of the illness              |
-| `symptoms`    | `text`    | List of symptoms of the illness                  |
-| `treatments`  | `text`    | List of treatment methods                        |
-| `videoUrl`    | `string`  | Optional video link explaining the illness       |
-| `resources`   | `string`  | Optional external resources or links             |
-
----
-
-### Article Model (Optional)
-
-The **Article** model allows additional articles or information pieces related to mental health to be stored and accessed by users.
-
-| Field       | Type      | Description                                      |
-|-------------|-----------|--------------------------------------------------|
-| `id`        | `integer` | Primary key                                      |
-| `title`     | `string`  | Title of the article                             |
-| `content`   | `text`    | Main content of the article                      |
-| `illnessId` | `integer` | Foreign key that links to an illness (optional)  |
-
----
-
-### Video Model (Optional)
-
-The **Video** model contains links to educational videos related to mental health illnesses.
-
-| Field       | Type      | Description                                      |
-|-------------|-----------|--------------------------------------------------|
-| `id`        | `integer` | Primary key                                      |
-| `title`     | `string`  | Title of the video                               |
-| `videoUrl`  | `string`  | URL of the video                                 |
-| `illnessId` | `integer` | Foreign key that links to an illness (optional)  |
-
-
-
-## Frontend Overview
-
-The frontend for **Headway Learning** will be built using **React** to provide an intuitive and user-friendly interface. The frontend will interact with the backend API to display information about mental health illnesses.
-
-### Key Pages
-
-- **Home Page**: Introduction to the platform and a listing of featured illnesses.
-- **Illness Detail Page**: Provides detailed information about each illness, including symptoms, treatments, and any available multimedia resources.
-- **Search and Filter**: Allows users to search for specific mental health conditions or filter by categories (e.g., anxiety, mood disorders, etc.).
-- **Resources Page**: Displays additional articles and links to external resources for users.
-
----
-
-## Contributing
-
-We welcome contributions to **Headway Learning**. If you would like to contribute, please follow these steps:
-
-1. Fork the repository.
-2. Create a new branch (`git checkout -b feature/your-feature`).
-3. Commit your changes (`git commit -m 'Add new feature'`).
-4. Push to the branch (`git push origin feature/your-feature`).
-5. Open a pull request and describe the changes you've made.
-
----
-
-## License
-
-This project is licensed under the **MIT License**. See the [LICENSE](LICENSE) file for more information.
-
-
-
+For any queries, reach out to [Your Name](mailto:youremail@example.com).
