@@ -1,0 +1,27 @@
+services:
+  backend:
+    build: .
+    container_name: headway-backend
+    restart: always
+    ports:
+      - "5000:5000"
+    environment:
+      - DATABASE_URL=postgresql://admin:admin@db:5432/headway_learning
+    depends_on:
+      - db
+
+  db:
+    image: postgres:14
+    container_name: headway-db
+    restart: always
+    environment:
+      POSTGRES_USER: admin
+      POSTGRES_PASSWORD: admin
+      POSTGRES_DB: headway_learning
+    volumes:
+      - db_data:/var/lib/postgresql/data
+    ports:
+      - "5432:5432"
+
+volumes:
+  db_data:
