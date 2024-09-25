@@ -1,6 +1,9 @@
-import express, { Application, Request, Response } from "express";
-import cors from "cors";
-import dotenv from "dotenv";
+import 'reflect-metadata';
+import express, { Application,Request,Response } from 'express';
+import cors from 'cors';
+import dotenv from 'dotenv';
+import { AppDataSource } from '../data-source';
+import authRoutes from './routes/authRoutes';
 
 dotenv.config();
 
@@ -10,14 +13,24 @@ const app: Application = express();
 app.use(cors());
 app.use(express.json());
 
-// Home Route
-app.get("/", (req: Request, res: Response) => {
-    res.send("Welcome to Headway Learning API")
-})
+// Initialize TypeORM DataSource
+AppDataSource.initialize()
+  .then(() => {
+    console.log('Connected to the PostgreSQL database');
+    // Home Route
+    app.get("/", (req: Request, res: Response) => {
+        res.send("Welcome to Headway Learning API")
+    })
+
+    // Use routes
+    app.use('/api/auth', authRoutes);
+
+    // Start the server
+    const PORT = process.env.PORT || 5000;
+    app.listen(PORT, () => {
+      console.log(`Server is running on http://localhost:${PORT}`);
+    });
+  })
+  .catch((error) => console.error('Database connection error:', error));
 
 
-// Server setup
-const PORT = process.env.PORT;
-app.listen(PORT, () => {
-    console.log(`Server is running on http://localhost:${PORT}`);
-});
