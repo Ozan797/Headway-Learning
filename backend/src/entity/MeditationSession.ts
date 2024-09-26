@@ -1,5 +1,11 @@
-import { Entity, PrimaryGeneratedColumn, Column, ManyToOne, CreateDateColumn } from 'typeorm';
-import { User } from './User';
+import {
+  Entity,
+  PrimaryGeneratedColumn,
+  Column,
+  ManyToOne,
+  CreateDateColumn,
+} from "typeorm";
+import { User } from "./User";
 
 @Entity()
 export class MeditationSession {
@@ -9,7 +15,7 @@ export class MeditationSession {
   @Column()
   title: string;
 
-  @Column({ nullable: true })
+  @Column()
   description: string;
 
   @Column()

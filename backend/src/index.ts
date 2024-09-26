@@ -4,6 +4,7 @@ import cors from 'cors';
 import dotenv from 'dotenv';
 import { AppDataSource } from '../data-source';
 import authRoutes from './routes/authRoutes';
+import meditationRoutes from "./routes/meditationRoutes"
 
 dotenv.config();
 
@@ -24,6 +25,7 @@ AppDataSource.initialize()
 
     // Use routes
     app.use('/api/auth', authRoutes);
+    app.use('/api/meditations', meditationRoutes);
 
     // Start the server
     const PORT = process.env.PORT || 5000;
