@@ -78,3 +78,29 @@ export const getUserProfile = async (req: Request, res: Response) => {
     res.status(500).json({ error: "Error fetching user profile" });
   }
 };
+
+export const updateUserProfile = async (req: Request, res: Response) => {
+  const { name, email, password } = req.body;
+
+  try {
+    const userRepository = AppDataSource.getRepository(User);
+    
+    const user = await userRepository.findOne({where: { id: (req as any).user.id}});
+    if(!user) {
+      return res.status(404).json({error: "User not found"})
+    }
+    // Update fields that will be entered
+    if (name) user.name = name;
+    if (email) user.email = email;
+    if (password) {
+      user.password = await bcrypt.hash(password, 10);
+    }
+
+    await userRepository.save(user);
+
+    res.json({message: "Profile updated successfully"})
+
+  } catch(error) {
+    res.status(500).json({ error: 'Error updating user profile' });
+  }
+};
